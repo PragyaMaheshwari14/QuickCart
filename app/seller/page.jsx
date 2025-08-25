@@ -28,10 +28,9 @@ const AddProduct = () => {
     formData.append('price', price)
     formData.append('offerPrice', offerPrice)
 
-    for (let i = 0; i < files.length; i++) {
+    for (let i = 0; i < files.length; i++) { 
       formData.append('images', files[i])
     }
-
     try {
       const token = await getToken()
       

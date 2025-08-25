@@ -34,7 +34,7 @@ export const AppContextProvider = (props) => {
          if(user.publicMetadata.role === 'seller'){
             setIsSeller(true)
         }
-        
+
         const token = await getToken()
         const {data} = await axios.get('/api/user/data', {headers: {Authorization: `Bearer ${token}`}})
 

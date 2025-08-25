@@ -18,15 +18,22 @@ export async function POST(request){
 
         const isSeller = await authSeller(userId)
 
-        if(!isSeller){
-            return NextResponse.json({ success: false,  message: 'not authorized'})
+        // if(!isSeller){
+        //     return NextResponse.json({ success: false,  message: 'not authorized'})
+        // }/
+
+        if (!isSeller) {
+            return NextResponse.json(
+               { success: false, message: "Not authorized" },
+               { status: 401 }
+            );
         }
 
         const formData = await  request.formData()
         const name = formData.get('name');
         const description = formData.get('description');
         const category = formData.get('category');
-        const price  = formData.ge('price');
+        const price  = formData.get('price');
         const offerPrice = formData.get('offerPrice');
 
         const files = formData.getAll('images');
@@ -37,8 +44,8 @@ export async function POST(request){
 
         const result = await Promise.all(
             files.map(async (file) => {
-                const arraybuffer = await file.arraybuffer()
-                const buffer = Buffer.form(arraybuffer)
+                const arrayBuffer = await file.arrayBuffer()
+                const buffer = Buffer.from(arrayBuffer)
 
                 return new Promise((resolve, reject)=>{
                    const stream = cloudinary.uploader.upload_stream(
@@ -51,7 +58,7 @@ export async function POST(request){
                            }
                         }
                     )
-                    stream.end(buffer)
+                    stream.end(buffer);
 
                 })
             })
