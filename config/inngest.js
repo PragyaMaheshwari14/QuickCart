@@ -5,7 +5,7 @@ import User from "@/models/User";
 // Create a client to send and receive events
 export const inngest = new Inngest({ id: "quickcart-next" });
 
-//Inngest function to dsave user data to a database
+//Inngest function to save user data to a database
 export const syncUserCreation = inngest.createFunction(
     {
         id:'sync-user-from-clerk'
