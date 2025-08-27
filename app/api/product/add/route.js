@@ -18,9 +18,9 @@ export async function POST(request){
 
         const isSeller = await authSeller(userId)
 
-        // if(!isSeller){
-        //     return NextResponse.json({ success: false,  message: 'not authorized'})
-        // }/
+        if(!isSeller){
+            return NextResponse.json({ success: false,  message: 'not authorized'})
+        }
 
         if (!isSeller) {
             return NextResponse.json(
